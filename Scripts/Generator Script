@@ -1,8 +1,8 @@
-firstPart = "c" -- Prefix (texto antes do nome)
+firstPart = "v" -- Prefix (texto antes do nome)
 lastPart = "" -- Suffix (texto depois do nome)
 requests = 150 -- Numero de nomes generados (Pode nao generar todos, depende do API do ROBLOX)
 maxJSONCharLimit = 7 -- Maximo de letras
-minJSONCharLimit = 5 -- Minimo de letras
+minJSONCharLimit = 4 -- Minimo de letras
 firstJSONLetterUppercase = true -- Mindgame -> MindGame
 allowedFirstJSONLetters = {"all"}
 includeNumbers = false -- Numeros?
@@ -70,7 +70,7 @@ end
 
 print("")
 print("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-warn("Demorou: ", Round(requests*0.1, 3) .. " segundos, ou "..Round(requests*0.1 / 60, 3) .. " minutos, ou " .. Round(requests*0.1 / 3600, 3) .. " horas a pedir ao API.")
+warn("A verificar se as contas estão tomadas..")
 print("")
 
 wait(3)
@@ -81,14 +81,14 @@ wait(3)
 
 local rgugmodule = game:GetService("ServerScriptService"):FindFirstChild("RGUsernameGen")
 
-assert(rgugmodule, "module script inside of ServerScriptService has been deleted")
+assert(rgugmodule, "Script dentro do ServerScriptService foi deletado. (Ou nao existe)")
 
 local deleteitem = Instance.new("ArcHandles")
 deleteitem.Name = "DeleteThisToStopSearch"
 deleteitem.Parent = rgugmodule
 
 
-local desiredErrMatch = "Unknown user"
+local desiredErrMatch = "User desconhecido."
 local start = os.clock()
 
 for i=1, requests do
@@ -107,7 +107,7 @@ for i=1, requests do
 	local exists, err = pcall(function() players:GetUserIdFromNameAsync(picked) end)
 
 	if showRequestTime then
-		print("request time: ", os.clock() - t)
+		print("Tempo de request: ", os.clock() - t)
 	end
 
 	if err and not err:match(desiredErrMatch) then
@@ -127,10 +127,10 @@ if deleteitem.Parent then
 end
 
 print("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-warn("Tempo total de SCAN: ", Round(timethattook, 3) .. " segundos, ou " .. Round(timethattook / 60, 3) .. " minutos, our " .. Round(timethattook / 3600, 3) .. " horas")
+warn("Tempo total: ", Round(timethattook, 3) .. " segundos, ou " .. Round(timethattook / 60, 3) .. " minutos, ou " .. Round(timethattook / 3600, 3) .. " horas")
 
 if #names == 0 then
-	warn("no results, try again maybe")
+	warn("Sem resultados, tenta denovo talvez?")
 
 else
 	table.sort(names, function(a, b)
