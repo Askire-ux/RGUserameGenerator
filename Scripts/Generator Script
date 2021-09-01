@@ -88,7 +88,7 @@ deleteitem.Name = "DeleteThisToStopSearch"
 deleteitem.Parent = rgugmodule
 
 
-local desiredErrMatch = "User desconhecido."
+local desiredErrMatch = "Unknown user"
 local start = os.clock()
 
 for i=1, requests do
